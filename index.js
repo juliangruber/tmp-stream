@@ -35,6 +35,10 @@ function tmp () {
     if (realStream.readable) realStream.pipe(output);
     if (realStream.writable) input.pipe(realStream);
 
+    stream.on('error', function (err) {
+      dpl.emit('error', err);
+    });
+
     nextTick(function () {
       for (var i = 0; i < buf.length; i++) realStream.write(buf[i]);
       buf = null;
