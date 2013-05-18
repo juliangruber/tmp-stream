@@ -41,7 +41,12 @@ YOU
 
 ### tmpStream()
 
+Create a new temporary stream.
+
 ### tmpStream#replace(stream)
+
+Use `stream` as the real underlying stream and feed it with both already
+buffered and new incoming data.
 
 ## Installation
 
