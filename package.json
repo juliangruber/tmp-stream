@@ -1,0 +1,31 @@
+{
+  "name": "tmp-stream",
+  "description": "A stream that's ready to be replaced by another",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/juliangruber/tmp-stream.git"
+  },
+  "homepage": "https://github.com/juliangruber/tmp-stream",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "dependencies": {
+    "duplexer": "~0.1.1",
+    "through": "~2.3.4"
+  },
+  "devDependencies": {
+    "tape": "~1.0.2"
+  },
+  "keywords": [
+    "stream",
+    "tmp"
+  ],
+  "author": {
+    "name": "Julian Gruber",
+    "email": "mail@juliangruber.com",
+    "url": "http://juliangruber.com"
+  },
+  "license": "MIT"
+}
