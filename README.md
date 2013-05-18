@@ -3,7 +3,7 @@
 
 A stream that's ready to be replaced by another.
 
-[![build status](https://secure.travis-ci.org/juliangruber/tmp-stream.png)](http://travis-ci.org/juliangruber/tmp-stream)
+[![build status](https://secure.travis-ci.org/juliangruber/tmp-stream.png)](https://travis-ci.org/juliangruber/tmp-stream)
 
 ## Usage
 
