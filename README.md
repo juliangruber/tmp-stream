@@ -50,6 +50,8 @@ Create a new temporary stream.
 Use `stream` as the real underlying stream and feed it with both already
 buffered and new incoming data.
 
+You may call this method only once.
+
 ## Installation
 
 With [npm](http://npmjs.org) do
