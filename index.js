@@ -26,6 +26,7 @@ function tmp () {
   var dpl = duplex(input, output);
 
   dpl.replace = function (stream) {
+    if (replaced) throw new Error('can replace only once');
     realStream = stream;
     replaced = true;
     
