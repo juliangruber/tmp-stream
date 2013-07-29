@@ -39,9 +39,6 @@ function tmp () {
     stream.on('error', function (err) {
       dpl.emit('error', err);
     });
-    stream.once('close', function () {
-      dpl.emit('close');
-    });
 
     nextTick(function () {
       for (var i = 0; i < buf.length; i++) realStream.write(buf[i]);

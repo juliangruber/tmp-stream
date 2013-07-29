@@ -7,9 +7,8 @@ test('tmp', function (t) {
     var tmp = tmpStream();
     setTimeout(function () {
       var tr = through();
-      tr.readable = false;
       tmp.replace(tr);
-      tr.emit('close');
+      tr.queue(null);
     });
     return tmp;
   }
@@ -17,6 +16,9 @@ test('tmp', function (t) {
   var stream = createStream();
   stream.once('close', function (data) {
     t.ok(true);
-    t.end();
+    stream.once('close', function (data) {
+      t.fail();
+    });
+    setTimeout(t.end.bind(t), 0);
   });
 });
