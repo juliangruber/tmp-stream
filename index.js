@@ -1,4 +1,4 @@
-var duplex = require('duplexer');
+var throughout = require('throughout');
 var through = require('through');
 
 var nextTick = typeof setImmediate !== 'undefined'
@@ -22,23 +22,23 @@ function tmp () {
   });
 
   var output = through();
-  var dpl = duplex(input, output);
+  var tr = throughout(input, output);
 
-  dpl.replace = function (stream) {
+  tr.replace = function (stream) {
     if (!input.readable) return; // already ended
     if (replaced) throw new Error('can replace only once');
 
     real = stream;
     replaced = true;
     
-    dpl.readable = real.readable;
-    dpl.writable = real.writable;
+    tr.readable = real.readable;
+    tr.writable = real.writable;
 
     if (real.readable) real.pipe(output);
     if (real.writable) input.pipe(real);
 
     stream.on('error', function (err) {
-      dpl.emit('error', err);
+      tr.emit('error', err);
     });
 
     nextTick(function () {
@@ -47,5 +47,5 @@ function tmp () {
     });
   }
 
-  return dpl;
+  return tr;
 }
