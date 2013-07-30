@@ -10,14 +10,14 @@ module.exports = tmp;
 function tmp () {
   var replaced = false;
   var buf = [];
-  var realStream;
+  var real;
 
   var input = through(function (chunk) {
     if (!replaced) {
       buf.push(chunk);
       return false;
     } else {
-      return realStream.write(chunk);
+      return real.write(chunk);
     }
   });
 
@@ -27,21 +27,21 @@ function tmp () {
 
   dpl.replace = function (stream) {
     if (replaced) throw new Error('can replace only once');
-    realStream = stream;
+    real = stream;
     replaced = true;
     
-    dpl.readable = realStream.readable;
-    dpl.writable = realStream.writable;
+    dpl.readable = real.readable;
+    dpl.writable = real.writable;
 
-    if (realStream.readable) realStream.pipe(output);
-    if (realStream.writable) input.pipe(realStream);
+    if (real.readable) real.pipe(output);
+    if (real.writable) input.pipe(real);
 
     stream.on('error', function (err) {
       dpl.emit('error', err);
     });
 
     nextTick(function () {
-      for (var i = 0; i < buf.length; i++) realStream.write(buf[i]);
+      for (var i = 0; i < buf.length; i++) real.write(buf[i]);
       buf = null;
     });
   }
