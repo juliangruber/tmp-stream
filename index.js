@@ -25,7 +25,7 @@ function tmp () {
   var tr = throughout(input, output);
 
   tr.replace = function (stream) {
-    if (!input.readable) return; // already ended
+    if (!input.readable) return stream.end(); // already ended
     if (replaced) throw new Error('can replace only once');
 
     real = stream;

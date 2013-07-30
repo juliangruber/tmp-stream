@@ -3,12 +3,12 @@ var tmpStream = require('../');
 var through = require('through');
 
 test('end', function (t) {
-  t.plan(1);
+  t.plan(2);
 
   function createStream () {
     var tmp = tmpStream();
     setTimeout(function () {
-      var tr = through();
+      var tr = through(null, t.ok.bind(t, true));
       tmp.replace(tr);
       tr.emit('data', 'oops');
     });
@@ -22,5 +22,5 @@ test('end', function (t) {
   });
   setTimeout(function () {
     t.ok(true);
-  });
+  }, 10);
 });
