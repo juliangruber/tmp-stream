@@ -22,11 +22,12 @@ function tmp () {
   });
 
   var output = through();
-
   var dpl = duplex(input, output);
 
   dpl.replace = function (stream) {
+    if (!input.readable) return; // already ended
     if (replaced) throw new Error('can replace only once');
+
     real = stream;
     replaced = true;
     
