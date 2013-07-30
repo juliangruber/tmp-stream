@@ -5,6 +5,8 @@ A stream that's ready to be replaced by another.
 
 [![build status](https://secure.travis-ci.org/juliangruber/tmp-stream.png)](https://travis-ci.org/juliangruber/tmp-stream)
 
+[![testling badge](https://ci.testling.com/juliangruber/tmp-stream.png)](https://ci.testling.com/juliangruber/tmp-stream)
+
 ## Usage
 
 Create a temporary stream and replace it with the real one after 500ms.
