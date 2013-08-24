@@ -41,10 +41,8 @@ function tmp () {
       tr.emit('error', err);
     });
 
-    nextTick(function () {
-      for (var i = 0; i < buf.length; i++) real.write(buf[i]);
-      buf = null;
-    });
+    for (var i = 0; i < buf.length; i++) real.write(buf[i]);
+    buf = null;
   }
 
   return tr;

@@ -17,9 +17,9 @@ test('tmp', function (t) {
 
   var stream = createStream();
   stream.once('data', function (data) {
-    t.equals(data, 'HEY');
+    t.equals(data, 'YOU');
     stream.once('data', function (data) {
-      t.equals(data, 'YOU');
+      t.equals(data, 'HEY');
       t.end();
     });
   });
