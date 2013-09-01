@@ -9,6 +9,7 @@ module.exports = tmp;
 
 function tmp () {
   var buf = [];
+  var ended = false;
   var real;
 
   var input = through(function (chunk) {
@@ -18,18 +19,20 @@ function tmp () {
     } else {
       return real.write(chunk);
     }
+  }, function () {
+    ended = true;
   });
 
   var output = through();
   var tr = throughout(input, output);
 
   tr.replace = function (stream) {
-    if (!input.readable) return stream.end(); // already ended
+    if (ended && !buf.length) return stream.end();
     if (real) throw new Error('can replace only once');
 
     real = stream;
     
-    tr.readable = real.readable;
+    tr.readable = real.readable || buf.length;
     tr.writable = real.writable;
 
     if (real.readable) real.pipe(output);
@@ -40,6 +43,7 @@ function tmp () {
     });
 
     for (var i = 0; i < buf.length; i++) real.write(buf[i]);
+    if (!input.readable && buf.length) tr.end();
     buf = null;
   }
 

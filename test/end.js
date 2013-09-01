@@ -24,3 +24,28 @@ test('end', function (t) {
     t.ok(true);
   }, 10);
 });
+
+test('source early end', function (t) {
+  t.plan(1);
+
+  function createStream () {
+    var tmp = tmpStream();
+    setTimeout(function () {
+      tmp.replace(through(function(chunk) {
+        this.queue(chunk);
+      }));
+    });
+    return tmp;
+  }
+
+  var src = through();
+  var stream = createStream();
+  src.pipe(stream);
+
+  src.emit('data', 'foo');
+  src.end();
+
+  stream.on('data', function (data) {
+    t.equal(data, 'foo');
+  });
+});
