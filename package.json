@@ -1,7 +1,7 @@
 {
   "name": "tmp-stream",
   "description": "A stream that's ready to be replaced by another",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/juliangruber/tmp-stream.git"
