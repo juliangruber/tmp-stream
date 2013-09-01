@@ -8,12 +8,11 @@ var nextTick = typeof setImmediate !== 'undefined'
 module.exports = tmp;
 
 function tmp () {
-  var replaced = false;
   var buf = [];
   var real;
 
   var input = through(function (chunk) {
-    if (!replaced) {
+    if (!real) {
       buf.push(chunk);
       return false;
     } else {
@@ -26,10 +25,9 @@ function tmp () {
 
   tr.replace = function (stream) {
     if (!input.readable) return stream.end(); // already ended
-    if (replaced) throw new Error('can replace only once');
+    if (real) throw new Error('can replace only once');
 
     real = stream;
-    replaced = true;
     
     tr.readable = real.readable;
     tr.writable = real.writable;
