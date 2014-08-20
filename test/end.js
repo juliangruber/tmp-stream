@@ -2,7 +2,7 @@ var test = require('tape');
 var tmpStream = require('../');
 var through = require('through');
 
-test('end', function (t) {
+test('end before replace', function (t) {
   t.plan(2);
 
   function createStream () {
@@ -24,3 +24,12 @@ test('end', function (t) {
     t.ok(true);
   }, 10);
 });
+
+test('end after replace', function (t) {
+  var stream = tmpStream();
+  stream.replace(through(null, function end(){
+    t.end();
+  }));
+  stream.end();
+});
+
